@@ -207,7 +207,7 @@ bool polynomial_equals(Polynomial p1, Polynomial p2)
  *
  * @return the value of p at x
  */
-double polynomial_evaluate_at(Polynomial p, double x)
+double polynomial_evaluate(Polynomial p, double x)
 {
     if(polynomial_is_null(p)) return 0.0;
 

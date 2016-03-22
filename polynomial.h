@@ -30,7 +30,7 @@ double      polynomial_get_coefficient      (Polynomial p, size_t i);
 bool        polynomial_is_zero              (Polynomial p);
 bool        polynomial_equals               (Polynomial p1, Polynomial p2);
 
-double      polynomial_evaluate_at          (Polynomial p, double x);
+double      polynomial_evaluate             (Polynomial p, double x);
 Polynomial  polynomial_add                  (Polynomial p1, Polynomial p2);
 Polynomial  polynomial_subtract             (Polynomial p1, Polynomial p2);
 Polynomial  polynomial_multiply             (Polynomial p1, Polynomial p2);
