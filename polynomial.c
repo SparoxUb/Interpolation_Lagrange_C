@@ -89,61 +89,61 @@ Polynomial polynomial_copy(Polynomial p)
 {
     if(polynomial_is_null(p)) return NULL;
 
-            Polynomial copy;
+    Polynomial copy;
 
-            if((copy = polynomial_new(p->degree)) == NULL) return NULL;
+    if((copy = polynomial_new(p->degree)) == NULL) return NULL;
 
-            for(size_t i = 0; i < p->degree + 1; i++) {
-            copy->terms[i] = p->terms[i];
-            }
+    for(size_t i = 0; i < p->degree + 1; i++) {
+        copy->terms[i] = p->terms[i];
+    }
 
-            return copy;
-            }
+    return copy;
+}
 
-            /**
-             * Frees up the allocated memory of a polynomial.
-             *
-             * @param[in] p the polynomial to be destroyed
-             */
-            void polynomial_destroy(Polynomial *p)
-            {
-            if(polynomial_is_null(p)) return;
+/**
+ * Frees up the allocated memory of a polynomial.
+ *
+ * @param[in] p the polynomial to be destroyed
+ */
+void polynomial_destroy(Polynomial *p)
+{
+    if(polynomial_is_null(p)) return;
 
-                    free((*p)->terms);
-                    free(p);
+    free((*p)->terms);
+    free(p);
 
-                    *p = NULL; // TODO: necessary?
-                    }
+    *p = NULL; // TODO: necessary?
+}
 
-                    /**
-                     * Returns the degree of a polynomial.
-                     *
-                     * @param[in] p the polynomial
-                     *
-                     * @return the degree of the polynomial
-                     */
-                    size_t polynomial_get_degree(Polynomial p)
-                    {
-                    if(polynomial_is_null(p)) return -1;
+/**
+ * Returns the degree of a polynomial.
+ *
+ * @param[in] p the polynomial
+ *
+ * @return the degree of the polynomial
+ */
+size_t polynomial_get_degree(Polynomial p)
+{
+    if(polynomial_is_null(p)) return -1;
 
-                            return p->degree;
-                            }
+    return p->degree;
+}
 
-                            /**
-                             * Sets the coefficient of the term with exponent i to a.
-                             *
-                             * @param[in] p the polynomial
-                             * @param[in] p the exponent
-                             * @param[in] a the coefficient
-                             */
-                            void polynomial_set_coefficient(Polynomial p, size_t i, double a)
-                            {
-                            if(polynomial_is_null(p) || !polynomial_valid_index(p, i)) return;
+/**
+ * Sets the coefficient of the term with exponent i to a.
+ *
+ * @param[in] p the polynomial
+ * @param[in] p the exponent
+ * @param[in] a the coefficient
+ */
+void polynomial_set_coefficient(Polynomial p, size_t i, double a)
+{
+    if(polynomial_is_null(p) || !polynomial_valid_index(p, i)) return;
 
-                            p->terms[i] = a;
+    p->terms[i] = a;
 
-                            if(a == 0.0) p = polynomial_reduce(p);
-                            }
+    if(a == 0.0) p = polynomial_reduce(p);
+}
 
 /**
  * Returns the coefficient of the term with exponent i.
@@ -171,33 +171,33 @@ bool polynomial_is_zero(Polynomial p)
 {
     if(polynomial_is_null(p)) return false;
 
-            for(int i = 0; i < p->degree + 1; i++) {
-            if(p->terms[i] != 0) return false;
-            }
+    for(int i = 0; i < p->degree + 1; i++) {
+        if(p->terms[i] != 0) return false;
+    }
 
-            return true;
-            }
+    return true;
+}
 
-            /**
-             * Checks if a polynomial equals another.
-             *
-             * @param[in] p1 the first polynomial
-             * @param[in] p2 the second polynomial
-             *
-             * @return true if the two polynomials are equal
-             */
-            bool polynomial_equals(Polynomial p1, Polynomial p2)
-            {
-            if(polynomial_is_null(p1) || polynomial_is_null(p2)) return false;
+/**
+ * Checks if a polynomial equals another.
+ *
+ * @param[in] p1 the first polynomial
+ * @param[in] p2 the second polynomial
+ *
+ * @return true if the two polynomials are equal
+ */
+bool polynomial_equals(Polynomial p1, Polynomial p2)
+{
+    if(polynomial_is_null(p1) || polynomial_is_null(p2)) return false;
 
-            if(p1->degree != p2->degree) return false;
+    if(p1->degree != p2->degree) return false;
 
-            for(int i = 0; i < p1->degree + 1; i++) {
-                if(p1->terms[i] != p2->terms[i]) return false;
-            }
+    for(int i = 0; i < p1->degree + 1; i++) {
+        if(p1->terms[i] != p2->terms[i]) return false;
+    }
 
-            return true;
-            }
+    return true;
+}
 
 /**
  * Evaluates a polynomial p at x, i.e. computes p(x), using Horner's method.
@@ -295,35 +295,35 @@ Polynomial polynomial_symmetric(Polynomial p)
 {
     if(polynomial_is_null(p)) return NULL;
 
-            for(int i = 0; i < p->degree + 1; i++) {
-            p->terms[i] *= -1;
-            }
+    for(int i = 0; i < p->degree + 1; i++) {
+        p->terms[i] *= -1;
+    }
 
-            return p;
-            }
+    return p;
+}
 
-            /**
-             * Computes the derivative of a polynomial.
-             *
-             * @param[in] p the polynomial
-             * @param
-             */
-            Polynomial polynomial_derivative(Polynomial p)
-            {
-            if(polynomial_is_null(p)) return NULL;
+/**
+ * Computes the derivative of a polynomial.
+ *
+ * @param[in] p the polynomial
+ * @param
+ */
+Polynomial polynomial_derivative(Polynomial p)
+{
+    if(polynomial_is_null(p)) return NULL;
 
-            if(polynomial_get_degree(p) < 1) return polynomial_zero();
+    if(polynomial_get_degree(p) < 1) return polynomial_zero();
 
-            Polynomial result = polynomial_new(p->degree - 1);
+    Polynomial result = polynomial_new(p->degree - 1);
 
-            result->terms[0] = 0.0;
+    result->terms[0] = 0.0;
 
-            for(size_t i = 1; i < p->degree + 1; i++) {
-                result->terms[i-1] = p->terms[i] * i;
-            }
+    for(size_t i = 1; i < p->degree + 1; i++) {
+        result->terms[i-1] = p->terms[i] * i;
+    }
 
-            return result;
-            }
+    return result;
+}
 
 /**
  * Computes the indefinite integral of a polynomial.
