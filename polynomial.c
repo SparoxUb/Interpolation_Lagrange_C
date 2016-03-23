@@ -6,44 +6,12 @@ struct polynomial_s
     double *terms;
 };
 
-static size_t ERROR = OK;
-
-static char *ERROR_MESSAGES[] = {
-    "Without error",
-    "Polynomial(s) do not exist",
-    "Out of memory",
-    "File does not exist",
-    "Wrong degree",
-    "Coefficient does not exist"
-};
-
-static char *ABNORMAL_ERROR_MESSAGE = "Unknown error";
-
-#define N (sizeof (ERROR_MESSAGES) / sizeof (char *))
-
 static bool         polynomial_is_null      (Polynomial p);
 static bool         polynomial_valid_index  (Polynomial p, size_t i);
 static Polynomial   polynomial_bigger       (Polynomial p1, Polynomial p2);
 static Polynomial   polynomial_smaller      (Polynomial p1, Polynomial p2);
 static Polynomial   polynomial_zero         (void);
 static Polynomial   polynomial_reduce       (Polynomial p);
-
-void polynomial_clear_error(void)
-{
-    ERROR = OK;
-}
-
-size_t polynomial_error(void)
-{
-    return ERROR;
-}
-
-char *polynomial_error_message(void)
-{
-    if (ERROR < N) return ERROR_MESSAGES[ERROR];
-
-    return ABNORMAL_ERROR_MESSAGE;
-}
 
 /**
  * Allocates memory for a new polynomial of degree n.
@@ -55,26 +23,22 @@ char *polynomial_error_message(void)
 Polynomial polynomial_new(size_t n)
 {
     if(n < 0) {
-        ERROR = BAD_DEGREE;
         return NULL;
     }
 
     Polynomial p;
 
     if((p = (Polynomial) malloc(sizeof(struct polynomial_s))) == NULL) {
-        ERROR = NO_MEM;
         return NULL;
     }
 
     if((p->terms = (double *) calloc(n + 1, sizeof(double))) == NULL) {
         free(p);
-        ERROR = NO_MEM;
         return NULL;
     }
 
     p->degree = n;
 
-    ERROR = OK;
     return p;
 }
 
@@ -372,7 +336,6 @@ void polynomial_to_file(Polynomial p, char *filename)
     FILE *file;
 
     if((file = fopen(filename, "w")) == NULL) {
-        ERROR = NO_FILE;
         return;
     }
 
@@ -382,7 +345,6 @@ void polynomial_to_file(Polynomial p, char *filename)
         fprintf(file, "%lf\n", p->terms[i]);
     }
 
-    ERROR = OK;
     fclose(file);
 }
 
@@ -400,14 +362,12 @@ Polynomial polynomial_from_file(char *filename)
     size_t degree;
 
     if((file = fopen(filename, "r")) == NULL) {
-        ERROR = NO_FILE;
         return NULL;
     }
 
     fscanf(file, "%zu", &degree);
 
     if(degree < 0) {
-        ERROR = BAD_DEGREE;
         fclose(file);
         return NULL;
     }
@@ -436,11 +396,9 @@ Polynomial polynomial_from_file(char *filename)
 static bool polynomial_is_null(Polynomial p)
 {
     if(p == NULL) {
-        ERROR = NO_POLY;
         return false;
     }
 
-    ERROR = OK;
     return true;
 }
 
@@ -457,11 +415,9 @@ static bool polynomial_valid_index(Polynomial p, size_t i)
     if(polynomial_is_null(p)) return false;
 
     if(i >= p->degree + 1) {
-        ERROR = BAD_INDEX;
         return false;
     }
 
-    ERROR = OK;
     return true;
 }
 
