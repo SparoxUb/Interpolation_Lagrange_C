@@ -28,11 +28,11 @@ Polynomial polynomial_new(size_t n)
 
     Polynomial p;
 
-    if((p = (Polynomial) malloc(sizeof(struct polynomial_s))) == NULL) {
+    if((p = malloc(sizeof(struct polynomial_s))) == NULL) {
         return NULL;
     }
 
-    if((p->terms = (double *) calloc(n + 1, sizeof(double))) == NULL) {
+    if((p->terms = calloc(n + 1, sizeof(double))) == NULL) {
         free(p);
         return NULL;
     }
@@ -235,7 +235,6 @@ Polynomial polynomial_multiply(Polynomial p1, Polynomial p2)
     Polynomial result;
 
     if((result = polynomial_new(p1->degree + p2->degree)) == NULL) {
-        ERROR = NO_MEM;
         return NULL;
     }
 
