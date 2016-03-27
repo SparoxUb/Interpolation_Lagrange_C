@@ -134,7 +134,7 @@ bool polynomial_is_zero(Polynomial p)
 {
     if(p == NULL) return false;
 
-    for(int i = 0; i < p->degree + 1; i++) {
+    for(size_t i = 0; i < p->degree + 1; i++) {
         if(p->terms[i] != 0) return false;
     }
 
@@ -155,7 +155,7 @@ bool polynomial_equals(Polynomial p1, Polynomial p2)
 
     if(p1->degree != p2->degree) return false;
 
-    for(int i = 0; i < p1->degree + 1; i++) {
+    for(size_t i = 0; i < p1->degree + 1; i++) {
         if(p1->terms[i] != p2->terms[i]) return false;
     }
 
@@ -176,7 +176,7 @@ double polynomial_evaluate(Polynomial p, double x)
 
     double result = 0;
 
-    for(int i = 0; i < p->degree + 1; i++) {
+    for(size_t i = 0; i < p->degree + 1; i++) {
         result = result * x + p->terms[i];
     }
 
@@ -197,7 +197,7 @@ Polynomial polynomial_add(Polynomial p1, Polynomial p2)
 
     Polynomial result = polynomial_bigger(p1, p2);
 
-    for(int i = 0; i < polynomial_smaller(p1, p2)->degree + 1; i++) {
+    for(size_t i = 0; i < polynomial_smaller(p1, p2)->degree + 1; i++) {
         result->terms[i] += p1->terms[i] + p2->terms[i];
     }
 
@@ -237,8 +237,8 @@ Polynomial polynomial_multiply(Polynomial p1, Polynomial p2)
         return NULL;
     }
 
-    for(int i = 0; i < p1->degree + 1; i++) {
-        for(int j = 0; i < p2->degree + 1; j++) {
+    for(size_t i = 0; i < p1->degree + 1; i++) {
+        for(size_t j = 0; i < p2->degree + 1; j++) {
             result->terms[i+j] += p1->terms[i] * p2->terms[j];
         }
     }
@@ -257,7 +257,7 @@ Polynomial polynomial_symmetric(Polynomial p)
 {
     if(p == NULL) return NULL;
 
-    for(int i = 0; i < p->degree + 1; i++) {
+    for(size_t i = 0; i < p->degree + 1; i++) {
         p->terms[i] *= -1;
     }
 
@@ -339,7 +339,7 @@ void polynomial_to_file(Polynomial p, char *filename)
 
     fprintf(file, "%zu\n", p->degree + 1);
 
-    for(int i = 0; i < p->degree + 1; i++) {
+    for(size_t i = 0; i < p->degree + 1; i++) {
         fprintf(file, "%lf\n", p->terms[i]);
     }
 
@@ -375,7 +375,7 @@ Polynomial polynomial_from_file(char *filename)
         return NULL;
     }
 
-    for(int i = 0; i < degree; i++) {
+    for(size_t i = 0; i < degree; i++) {
         fscanf(file, "%lf", p->terms+i); // TODO
     }
 
