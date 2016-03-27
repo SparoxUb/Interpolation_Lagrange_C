@@ -291,6 +291,7 @@ Polynomial polynomial_derivative(Polynomial p)
  * Computes the indefinite integral of a polynomial.
  *
  * @param[in] p the polynomial to be integrated
+ * @param[in] c the arbitrary constant of integration
  *
  * @return the integrated polynomial
  */
