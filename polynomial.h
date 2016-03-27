@@ -8,17 +8,6 @@
 
 typedef struct polynomial_s *Polynomial;
 
-#define  OK         0  /* operation with success */
-#define  NO_POLY    1  /* the polynomial(s) do not exist */
-#define  NO_MEM     2  /* out of memory */
-#define  NO_FILE    3  /* file does not exist */
-#define  BAD_DEGREE 4  /* wrong degree */
-#define  BAD_INDEX  5  /* coefficient does not exist in the polynomial */
-
-void        polynomial_error_clear          (void);
-size_t      polynomial_error                (void);
-char        *polynomial_error_message       (void);
-
 Polynomial  polynomial_new                  (size_t degree);
 Polynomial  polynomial_copy                 (Polynomial p);
 void        polynomial_destroy              (Polynomial *p);
