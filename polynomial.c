@@ -323,67 +323,6 @@ double polynomial_definite_integral(Polynomial *p, double a, double b)
 }
 
 /**
- * Writes a polynomial to a file.
- *
- * @param[in] p the polynomial
- * @param[in] filename the filename of the file to write to
- */
-void polynomial_to_file(Polynomial *p, char *filename)
-{
-    if(p == NULL) return;
-
-    FILE *file;
-
-    if((file = fopen(filename, "w")) == NULL) {
-        return;
-    }
-
-    fprintf(file, "%zu\n", p->degree + 1);
-
-    for(size_t i = 0; i < p->degree + 1; i++) {
-        fprintf(file, "%lf\n", p->terms[i]);
-    }
-
-    fclose(file);
-}
-
-/**
- * Reads a polynomial from a file.
- *
- * @param[in] filename the filename of the file to read from
- *
- * @return the polynomial
- */
-Polynomial *polynomial_from_file(char *filename)
-{
-    Polynomial *p;
-    FILE *file;
-    size_t degree;
-
-    if((file = fopen(filename, "r")) == NULL) {
-        return NULL;
-    }
-
-    fscanf(file, "%zu", &degree);
-
-    if(degree < 0) {
-        fclose(file);
-        return NULL;
-    }
-
-    if((p = polynomial_new(degree)) == NULL) {
-        fclose(file);
-        return NULL;
-    }
-
-    for(size_t i = 0; i < degree; i++) {
-        fscanf(file, "%lf", p->terms+i); // TODO
-    }
-
-    return NULL;
-}
-
-/**
  * Checks if an index is valid in the terms array.
  *
  * @param[in] p the polynomial

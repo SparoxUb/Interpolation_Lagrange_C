@@ -29,7 +29,4 @@ Polynomial  *polynomial_derivative          (Polynomial *p);
 Polynomial  *polynomial_indefinite_integral (Polynomial *p, double c);
 double      polynomial_definite_integral    (Polynomial *p, double a, double b);
 
-void        polynomial_to_file              (Polynomial *p, char *filename);
-Polynomial  *polynomial_from_file           (char *filename);
-
 #endif /* __POLYNOMIAL_H__ */
