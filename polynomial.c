@@ -6,7 +6,6 @@ struct polynomial_s
     double *terms;
 };
 
-static bool         polynomial_is_null      (Polynomial p);
 static bool         polynomial_valid_index  (Polynomial p, size_t i);
 static Polynomial   polynomial_bigger       (Polynomial p1, Polynomial p2);
 static Polynomial   polynomial_smaller      (Polynomial p1, Polynomial p2);
@@ -51,7 +50,7 @@ Polynomial polynomial_new(size_t n)
  */
 Polynomial polynomial_copy(Polynomial p)
 {
-    if(polynomial_is_null(p)) return NULL;
+    if(p == NULL) return NULL;
 
     Polynomial copy;
 
@@ -69,14 +68,14 @@ Polynomial polynomial_copy(Polynomial p)
  *
  * @param[in] p the polynomial to be destroyed
  */
-void polynomial_destroy(Polynomial *p)
+void polynomial_destroy(Polynomial p)
 {
-    if(polynomial_is_null(p)) return;
+    if(p == NULL) return;
 
-    free((*p)->terms);
+    free(p->terms);
     free(p);
 
-    *p = NULL; // TODO: necessary?
+    p = NULL;
 }
 
 /**
@@ -88,7 +87,7 @@ void polynomial_destroy(Polynomial *p)
  */
 size_t polynomial_get_degree(Polynomial p)
 {
-    if(polynomial_is_null(p)) return -1;
+    if(p == NULL) return -1;
 
     return p->degree;
 }
@@ -102,7 +101,7 @@ size_t polynomial_get_degree(Polynomial p)
  */
 void polynomial_set_coefficient(Polynomial p, size_t i, double a)
 {
-    if(polynomial_is_null(p) || !polynomial_valid_index(p, i)) return;
+    if(p == NULL || !polynomial_valid_index(p, i)) return;
 
     p->terms[i] = a;
 
@@ -119,7 +118,7 @@ void polynomial_set_coefficient(Polynomial p, size_t i, double a)
  */
 double polynomial_get_coefficient(Polynomial p, size_t i)
 {
-    if(polynomial_is_null(p) || !polynomial_valid_index(p, i)) return 0.0;
+    if(p == NULL) || !polynomial_valid_index(p, i)) return 0.0;
 
     return p->terms[i];
 }
@@ -133,7 +132,7 @@ double polynomial_get_coefficient(Polynomial p, size_t i)
  */
 bool polynomial_is_zero(Polynomial p)
 {
-    if(polynomial_is_null(p)) return false;
+    if(p == NULL) return false;
 
     for(int i = 0; i < p->degree + 1; i++) {
         if(p->terms[i] != 0) return false;
@@ -152,7 +151,7 @@ bool polynomial_is_zero(Polynomial p)
  */
 bool polynomial_equals(Polynomial p1, Polynomial p2)
 {
-    if(polynomial_is_null(p1) || polynomial_is_null(p2)) return false;
+    if(p1 == NULL || p2 == NULL) return false;
 
     if(p1->degree != p2->degree) return false;
 
@@ -173,7 +172,7 @@ bool polynomial_equals(Polynomial p1, Polynomial p2)
  */
 double polynomial_evaluate(Polynomial p, double x)
 {
-    if(polynomial_is_null(p)) return 0.0;
+    if(p == NULL) return 0.0;
 
     double result = 0;
 
@@ -194,7 +193,7 @@ double polynomial_evaluate(Polynomial p, double x)
  */
 Polynomial polynomial_add(Polynomial p1, Polynomial p2)
 {
-    if(polynomial_is_null(p1) || polynomial_is_null(p2)) return NULL;
+    if(p1 == NULL || p2 == NULL) return NULL;
 
     Polynomial result = polynomial_bigger(p1, p2);
 
@@ -215,7 +214,7 @@ Polynomial polynomial_add(Polynomial p1, Polynomial p2)
  */
 Polynomial polynomial_subtract(Polynomial p1, Polynomial p2)
 {
-    if(polynomial_is_null(p1) || polynomial_is_null(p2)) return NULL;
+    if(p1 == NULL || p2 == NULL) return NULL;
 
     return polynomial_reduce(polynomial_add(p1, polynomial_symmetric(p2)));
 }
@@ -230,7 +229,7 @@ Polynomial polynomial_subtract(Polynomial p1, Polynomial p2)
  */
 Polynomial polynomial_multiply(Polynomial p1, Polynomial p2)
 {
-    if(polynomial_is_null(p1) || polynomial_is_null(p2)) return NULL;
+    if(p1 == NULL || p2 == NULL) return NULL;
 
     Polynomial result;
 
@@ -256,7 +255,7 @@ Polynomial polynomial_multiply(Polynomial p1, Polynomial p2)
  */
 Polynomial polynomial_symmetric(Polynomial p)
 {
-    if(polynomial_is_null(p)) return NULL;
+    if(p == NULL) return NULL;
 
     for(int i = 0; i < p->degree + 1; i++) {
         p->terms[i] *= -1;
@@ -273,7 +272,7 @@ Polynomial polynomial_symmetric(Polynomial p)
  */
 Polynomial polynomial_derivative(Polynomial p)
 {
-    if(polynomial_is_null(p)) return NULL;
+    if(p == NULL) return NULL;
 
     if(polynomial_get_degree(p) < 1) return polynomial_zero();
 
@@ -297,7 +296,7 @@ Polynomial polynomial_derivative(Polynomial p)
  */
 Polynomial polynomial_indefinite_integral(Polynomial p, double c)
 {
-    if(polynomial_is_null(p)) return NULL;
+    if(p == NULL) return NULL;
 
     Polynomial result = polynomial_new(p->degree + 1);
 
@@ -317,7 +316,7 @@ Polynomial polynomial_indefinite_integral(Polynomial p, double c)
  */
 double polynomial_definite_integral(Polynomial p, double a, double b)
 {
-    if(polynomial_is_null(p)) return 0.0;
+    if(p == NULL) return 0.0;
 
     return polynomial_evaluate_at(polynomial_indefinite_integral(p, 0), b) - polynomial_evaluate_at(polynomial_indefinite_integral(p, 0), a);
 }
@@ -330,7 +329,7 @@ double polynomial_definite_integral(Polynomial p, double a, double b)
  */
 void polynomial_to_file(Polynomial p, char *filename)
 {
-    if(polynomial_is_null(p)) return;
+    if(p == NULL) return;
 
     FILE *file;
 
@@ -383,24 +382,6 @@ Polynomial polynomial_from_file(char *filename)
     return NULL;
 }
 
-
-
-/**
- * Checks whether a polynomial is null.
- *
- * @param[in] p the polynomial to be checked
- *
- * @return true if the polynomial is null
- */
-static bool polynomial_is_null(Polynomial p)
-{
-    if(p == NULL) {
-        return false;
-    }
-
-    return true;
-}
-
 /**
  * Checks if an index is valid in the terms array.
  *
@@ -411,7 +392,7 @@ static bool polynomial_is_null(Polynomial p)
  */
 static bool polynomial_valid_index(Polynomial p, size_t i)
 {
-    if(polynomial_is_null(p)) return false;
+    if(p == NULL) return false;
 
     if(i >= p->degree + 1) {
         return false;
@@ -430,7 +411,7 @@ static bool polynomial_valid_index(Polynomial p, size_t i)
  */
 static Polynomial polynomial_bigger(Polynomial p1, Polynomial p2)
 {
-    if(polynomial_is_null(p1) || polynomial_is_null(p2)) return NULL;
+    if(p1 == NULL || p2 == NULL) return NULL;
 
     return (p1->degree > p2->degree) ? p1 : p2;
 }
@@ -445,7 +426,7 @@ static Polynomial polynomial_bigger(Polynomial p1, Polynomial p2)
  */
 static Polynomial polynomial_smaller(Polynomial p1, Polynomial p2)
 {
-    if(polynomial_is_null(p1) || polynomial_is_null(p2)) return NULL;
+    if(p1 == NULL || p2 == NULL) return NULL;
 
     return (p1->degree > p2->degree) ? p2 : p1;
 }
@@ -467,7 +448,7 @@ static Polynomial polynomial_zero()
  */
 static Polynomial polynomial_reduce(Polynomial p)
 {
-    if(polynomial_is_null(p)) return NULL;
+    if(p == NULL) return NULL;
 
     size_t degree = p->degree;
 
