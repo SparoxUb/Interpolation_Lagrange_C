@@ -21,17 +21,17 @@ static Polynomial   *polynomial_reduce      (Polynomial *p);
  */
 Polynomial *polynomial_new(size_t n)
 {
-    if(n < 0) {
+    if (n < 0) {
         return NULL;
     }
 
     Polynomial p;
 
-    if((p = malloc(sizeof(struct polynomial_s))) == NULL) {
+    if ((p = malloc(sizeof(struct polynomial_s))) == NULL) {
         return NULL;
     }
 
-    if((p->terms = calloc(n + 1, sizeof(double))) == NULL) {
+    if ((p->terms = calloc(n + 1, sizeof(double))) == NULL) {
         free(p);
         return NULL;
     }
@@ -50,13 +50,13 @@ Polynomial *polynomial_new(size_t n)
  */
 Polynomial *polynomial_copy(Polynomial p)
 {
-    if(p == NULL) return NULL;
+    if (p == NULL) return NULL;
 
     Polynomial *copy;
 
-    if((copy = polynomial_new(p->degree)) == NULL) return NULL;
+    if ((copy = polynomial_new(p->degree)) == NULL) return NULL;
 
-    for(size_t i = 0; i < p->degree + 1; i++) {
+    for (size_t i = 0; i < p->degree + 1; i++) {
         copy->terms[i] = p->terms[i];
     }
 
@@ -70,7 +70,7 @@ Polynomial *polynomial_copy(Polynomial p)
  */
 void polynomial_destroy(Polynomial *p)
 {
-    if(p == NULL) return;
+    if (p == NULL) return;
 
     free(p->terms);
     free(p);
@@ -87,7 +87,7 @@ void polynomial_destroy(Polynomial *p)
  */
 size_t polynomial_get_degree(Polynomial *p)
 {
-    if(p == NULL) return -1;
+    if (p == NULL) return -1;
 
     return p->degree;
 }
@@ -101,11 +101,11 @@ size_t polynomial_get_degree(Polynomial *p)
  */
 void polynomial_set_coefficient(Polynomial *p, size_t i, double a)
 {
-    if(p == NULL || !polynomial_valid_index(p, i)) return;
+    if (p == NULL || !polynomial_valid_index(p, i)) return;
 
     p->terms[i] = a;
 
-    if(a == 0.0) p = polynomial_reduce(p);
+    if (a == 0.0) p = polynomial_reduce(p);
 }
 
 /**
@@ -118,7 +118,7 @@ void polynomial_set_coefficient(Polynomial *p, size_t i, double a)
  */
 double polynomial_get_coefficient(Polynomial *p, size_t i)
 {
-    if(p == NULL) || !polynomial_valid_index(p, i)) return 0.0;
+    if (p == NULL) || !polynomial_valid_index(p, i)) return 0.0;
 
     return p->terms[i];
 }
@@ -132,10 +132,10 @@ double polynomial_get_coefficient(Polynomial *p, size_t i)
  */
 bool polynomial_is_zero(Polynomial *p)
 {
-    if(p == NULL) return false;
+    if (p == NULL) return false;
     
-    for(size_t i = 0; i < p->degree + 1; i++) {
-        if(p->terms[i] != 0) return false;
+    for (size_t i = 0; i < p->degree + 1; i++) {
+        if (p->terms[i] != 0) return false;
     }
 
     return true;
@@ -151,12 +151,12 @@ bool polynomial_is_zero(Polynomial *p)
  */
 bool polynomial_equals(Polynomial *p1, Polynomial *p2)
 {
-    if(p1 == NULL || p2 == NULL) return false;
+    if (p1 == NULL || p2 == NULL) return false;
 
-    if(p1->degree != p2->degree) return false;
+    if (p1->degree != p2->degree) return false;
 
-    for(size_t i = 0; i < p1->degree + 1; i++) {
-        if(p1->terms[i] != p2->terms[i]) return false;
+    for (size_t i = 0; i < p1->degree + 1; i++) {
+        if (p1->terms[i] != p2->terms[i]) return false;
     }
 
     return true;
@@ -172,11 +172,11 @@ bool polynomial_equals(Polynomial *p1, Polynomial *p2)
  */
 double polynomial_evaluate(Polynomial *p, double x)
 {
-    if(p == NULL) return 0.0;
+    if (p == NULL) return 0.0;
 
     double result = 0;
 
-    for(size_t i = 0; i < p->degree + 1; i++) {
+    for (size_t i = 0; i < p->degree + 1; i++) {
         result = result * x + p->terms[i];
     }
 
@@ -193,11 +193,11 @@ double polynomial_evaluate(Polynomial *p, double x)
  */
 Polynomial *polynomial_add(Polynomial *p1, Polynomial *p2)
 {
-    if(p1 == NULL || p2 == NULL) return NULL;
+    if (p1 == NULL || p2 == NULL) return NULL;
 
     Polynomial *result = polynomial_bigger(p1, p2);
 
-    for(size_t i = 0; i < polynomial_smaller(p1, p2)->degree + 1; i++) {
+    for (size_t i = 0; i < polynomial_smaller(p1, p2)->degree + 1; i++) {
         result->terms[i] += p1->terms[i] + p2->terms[i];
     }
 
@@ -214,7 +214,7 @@ Polynomial *polynomial_add(Polynomial *p1, Polynomial *p2)
  */
 Polynomial *polynomial_subtract(Polynomial *p1, Polynomial *p2)
 {
-    if(p1 == NULL || p2 == NULL) return NULL;
+    if (p1 == NULL || p2 == NULL) return NULL;
 
     return polynomial_reduce(polynomial_add(p1, polynomial_symmetric(p2)));
 }
@@ -229,16 +229,16 @@ Polynomial *polynomial_subtract(Polynomial *p1, Polynomial *p2)
  */
 Polynomial *polynomial_multiply(Polynomial *p1, Polynomial *p2)
 {
-    if(p1 == NULL || p2 == NULL) return NULL;
+    if (p1 == NULL || p2 == NULL) return NULL;
 
     Polynomial *result;
 
-    if((result = polynomial_new(p1->degree + p2->degree)) == NULL) {
+    if ((result = polynomial_new(p1->degree + p2->degree)) == NULL) {
         return NULL;
     }
 
-    for(size_t i = 0; i < p1->degree + 1; i++) {
-        for(size_t j = 0; i < p2->degree + 1; j++) {
+    for (size_t i = 0; i < p1->degree + 1; i++) {
+        for (size_t j = 0; i < p2->degree + 1; j++) {
             result->terms[i+j] += p1->terms[i] * p2->terms[j];
         }
     }
@@ -255,9 +255,9 @@ Polynomial *polynomial_multiply(Polynomial *p1, Polynomial *p2)
  */
 Polynomial *polynomial_symmetric(Polynomial *p)
 {
-    if(p == NULL) return NULL;
+    if (p == NULL) return NULL;
 
-    for(size_t i = 0; i < p->degree + 1; i++) {
+    for (size_t i = 0; i < p->degree + 1; i++) {
         p->terms[i] *= -1;
     }
 
@@ -272,15 +272,15 @@ Polynomial *polynomial_symmetric(Polynomial *p)
  */
 Polynomial *polynomial_derivative(Polynomial *p)
 {
-    if(p == NULL) return NULL;
+    if (p == NULL) return NULL;
 
-    if(polynomial_get_degree(p) < 1) return polynomial_zero();
+    if (polynomial_get_degree(p) < 1) return polynomial_zero();
 
     Polynomial *result = polynomial_new(p->degree - 1);
 
     result->terms[0] = 0.0;
 
-    for(size_t i = 1; i < p->degree + 1; i++) {
+    for (size_t i = 1; i < p->degree + 1; i++) {
         result->terms[i-1] = p->terms[i] * i;
     }
 
@@ -297,13 +297,13 @@ Polynomial *polynomial_derivative(Polynomial *p)
  */
 Polynomial *polynomial_indefinite_integral(Polynomial *p, double c)
 {
-    if(p == NULL) return NULL;
+    if (p == NULL) return NULL;
 
     Polynomial *result = polynomial_new(p->degree + 1);
 
     result->terms[0] = c; // TODO: worth it?
 
-    for(size_t i = 0; i < p->degree + 1; i++) {
+    for (size_t i = 0; i < p->degree + 1; i++) {
         result->terms[i+1] = p->terms[i] / (i+1);
     }
 
@@ -317,7 +317,7 @@ Polynomial *polynomial_indefinite_integral(Polynomial *p, double c)
  */
 double polynomial_definite_integral(Polynomial *p, double a, double b)
 {
-    if(p == NULL) return 0.0;
+    if (p == NULL) return 0.0;
 
     return polynomial_evaluate_at(polynomial_indefinite_integral(p, 0), b) - polynomial_evaluate_at(polynomial_indefinite_integral(p, 0), a);
 }
@@ -332,9 +332,9 @@ double polynomial_definite_integral(Polynomial *p, double a, double b)
  */
 static bool polynomial_valid_index(Polynomial *p, size_t i)
 {
-    if(p == NULL) return false;
+    if (p == NULL) return false;
 
-    if(i >= p->degree + 1) {
+    if (i >= p->degree + 1) {
         return false;
     }
 
@@ -351,7 +351,7 @@ static bool polynomial_valid_index(Polynomial *p, size_t i)
  */
 static Polynomial *polynomial_bigger(Polynomial *p1, Polynomial *p2)
 {
-    if(p1 == NULL || p2 == NULL) return NULL;
+    if (p1 == NULL || p2 == NULL) return NULL;
 
     return (p1->degree > p2->degree) ? p1 : p2;
 }
@@ -366,7 +366,7 @@ static Polynomial *polynomial_bigger(Polynomial *p1, Polynomial *p2)
  */
 static Polynomial *polynomial_smaller(Polynomial *p1, Polynomial *p2)
 {
-    if(p1 == NULL || p2 == NULL) return NULL;
+    if (p1 == NULL || p2 == NULL) return NULL;
 
     return (p1->degree > p2->degree) ? p2 : p1;
 }
@@ -388,13 +388,13 @@ static Polynomial *polynomial_zero()
  */
 static Polynomial *polynomial_reduce(Polynomial *p)
 {
-    if(p == NULL) return NULL;
+    if (p == NULL) return NULL;
 
     size_t degree = p->degree;
 
     while (degree > 0 && p->terms[degree] == 0.0) degree--;
 
-    if(degree != p->degree)
+    if (degree != p->degree)
         p->terms = (double *) realloc(p->terms, (degree+1) * sizeof (double));
 
     p->degree = degree;
