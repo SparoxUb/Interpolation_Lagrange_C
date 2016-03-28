@@ -25,7 +25,7 @@ Polynomial *polynomial_new(size_t n)
         return NULL;
     }
 
-    Polynomial p;
+    Polynomial *p;
 
     if ((p = malloc(sizeof(struct polynomial_s))) == NULL) {
         return NULL;
@@ -333,10 +333,7 @@ double polynomial_definite_integral(Polynomial *p, double a, double b)
 static bool polynomial_valid_index(Polynomial *p, size_t i)
 {
     if (p == NULL) return false;
-
-    if (i >= p->degree + 1) {
-        return false;
-    }
+    if (i >= p->degree + 1) return false;
 
     return true;
 }
