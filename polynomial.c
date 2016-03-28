@@ -395,7 +395,7 @@ static Polynomial *polynomial_reduce(Polynomial *p)
     while (degree > 0 && p->terms[degree] == 0.0) degree--;
 
     if (degree != p->degree)
-        p->terms = (double *) realloc(p->terms, (degree+1) * sizeof (double));
+        p->terms = realloc(p->terms, (degree+1) * sizeof (double));
 
     p->degree = degree;
 
