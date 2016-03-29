@@ -118,7 +118,7 @@ void polynomial_set_coefficient(Polynomial *p, size_t i, double a)
  */
 double polynomial_get_coefficient(Polynomial *p, size_t i)
 {
-    if (p == NULL) || !polynomial_valid_index(p, i)) return 0.0;
+    if (p == NULL || !polynomial_valid_index(p, i)) return 0.0;
 
     return p->terms[i];
 }
@@ -301,7 +301,7 @@ Polynomial *polynomial_indefinite_integral(Polynomial *p, double c)
 
     Polynomial *result = polynomial_new(p->degree + 1);
 
-    result->terms[0] = c; // TODO: worth it?
+    result->terms[0] = c;
 
     for (size_t i = 0; i < p->degree + 1; i++) {
         result->terms[i+1] = p->terms[i] / (i+1);
@@ -319,7 +319,13 @@ double polynomial_definite_integral(Polynomial *p, double a, double b)
 {
     if (p == NULL) return 0.0;
 
-    return polynomial_evaluate_at(polynomial_indefinite_integral(p, 0), b) - polynomial_evaluate_at(polynomial_indefinite_integral(p, 0), a);
+    Polynomial *indefinite = polynomial_indefinite_integral(p, 0);
+
+    double val = polynomial_evaluate_at(indefinite, b) - polynomial_evaluate_at(indefinite, a);
+    
+    polynomial_destroy(indefinite);
+
+    return val;
 }
 
 /**
