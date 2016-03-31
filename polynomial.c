@@ -93,7 +93,7 @@ size_t polynomial_get_degree(Polynomial *p)
 }
 
 /**
- * Sets the coefficient of the term with exponent i to a.
+ * Sets the coefficient of the term of exponent i to a.
  *
  * @param[in] p the polynomial
  * @param[in] p the exponent
@@ -109,12 +109,12 @@ void polynomial_set_coefficient(Polynomial *p, size_t i, double a)
 }
 
 /**
- * Returns the coefficient of the term with exponent i.
+ * Returns the coefficient of the term of exponent i.
  *
  * @param[in] p the polynomial
  * @param[in] i the exponent
  *
- * @return the coefficient of the term with exponent i
+ * @return the coefficient of the term of exponent i
  */
 double polynomial_get_coefficient(Polynomial *p, size_t i)
 {
@@ -238,10 +238,34 @@ Polynomial *polynomial_multiply(Polynomial *p1, Polynomial *p2)
     }
 
     for (size_t i = 0; i < p1->degree + 1; i++) {
-        for (size_t j = 0; i < p2->degree + 1; j++) {
+        for (size_t j = 0; j < p2->degree + 1; j++) {
             result->terms[i+j] += p1->terms[i] * p2->terms[j];
         }
     }
+
+    return polynomial_reduce(result);
+}
+
+/**
+ * Multiplies a polynomial by a constant.
+ *
+ * @param[in] p the polynomial to be multiplied
+ * @param[in] c the constant to multiply by
+ *
+ * @return the result of multiplying the polynomial by the constant
+ */
+Polynomial *polynomial_multiply_by_constant(Polynomial *p, double c)
+{
+    if (p1 == NULL) return NULL;
+
+    Polynomial *result;
+
+    if ((result = polynomial_new(p->degree + p->degree)) == NULL) {
+        return NULL;
+    }
+
+    for (size_t i = 0; i < p->degree + 1; i++)
+            result->terms[i] = p->terms[i] * c;
 
     return polynomial_reduce(result);
 }
@@ -255,20 +279,15 @@ Polynomial *polynomial_multiply(Polynomial *p1, Polynomial *p2)
  */
 Polynomial *polynomial_symmetric(Polynomial *p)
 {
-    if (p == NULL) return NULL;
-
-    for (size_t i = 0; i < p->degree + 1; i++) {
-        p->terms[i] *= -1;
-    }
-
-    return p;
+    return polynomial_multiply_by_constant(p, -1);
 }
 
 /**
  * Computes the derivative of a polynomial.
  *
  * @param[in] p the polynomial
- * @param
+ *
+ * @return the derivative of the polynomial
  */
 Polynomial *polynomial_derivative(Polynomial *p)
 {
