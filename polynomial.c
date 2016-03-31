@@ -64,18 +64,18 @@ Polynomial *polynomial_copy(Polynomial p)
 }
 
 /**
- * Frees up the allocated memory of a polynomial.
+ * Frees up the allocated memory and the pointer of a polynomial.
  *
  * @param[in] p the polynomial to be destroyed
  */
-void polynomial_destroy(Polynomial *p)
+void polynomial_destroy(Polynomial **p)
 {
-    if (p == NULL) return;
+    if (*p == NULL) return;
 
-    free(p->terms);
-    free(p);
+    free((*p)->terms);
+    free(*p);
 
-    p = NULL;
+    *p = NULL;
 }
 
 /**
@@ -133,7 +133,7 @@ double polynomial_get_coefficient(Polynomial *p, size_t i)
 bool polynomial_is_zero(Polynomial *p)
 {
     if (p == NULL) return false;
-    
+
     for (size_t i = 0; i < p->degree + 1; i++) {
         if (p->terms[i] != 0) return false;
     }
@@ -341,7 +341,7 @@ double polynomial_definite_integral(Polynomial *p, double a, double b)
     Polynomial *indefinite = polynomial_indefinite_integral(p, 0);
 
     double val = polynomial_evaluate_at(indefinite, b) - polynomial_evaluate_at(indefinite, a);
-    
+
     polynomial_destroy(indefinite);
 
     return val;
