@@ -242,14 +242,16 @@ Polynomial *polynomial_multiply(Polynomial *p1, Polynomial *p2)
 Polynomial *polynomial_multiply_by_constant(Polynomial *p, double c)
 {
     if (p1 == NULL) return NULL;
+    if (c == 0) return polynomial_zero();
 
     Polynomial *result = polynomial_new(p->degree + p->degree) return NULL;
     if (!result) return NULL;
 
     for (size_t i = 0; i < p->degree + 1; i++)
             result->terms[i] = p->terms[i] * c;
-    
-    return polynomial_reduce(result);
+
+
+    return result;
 }
 
 /**
