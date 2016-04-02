@@ -10,7 +10,7 @@ typedef struct polynomial_s Polynomial;
 
 Polynomial  *polynomial_new                     (size_t degree);
 Polynomial  *polynomial_copy                    (Polynomial *p);
-void        *polynomial_destroy                 (Polynomial *p);
+void         polynomial_destroy                 (Polynomial **p);
 
 size_t       polynomial_get_degree              (Polynomial *p);
 void         polynomial_set_coefficient         (Polynomial *p, size_t i, double a);

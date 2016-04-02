@@ -44,7 +44,7 @@ Polynomial *polynomial_new(size_t n)
  *
  * @return the copy of the polynomial
  */
-Polynomial *polynomial_copy(Polynomial p)
+Polynomial *polynomial_copy(Polynomial *p)
 {
     if (p == NULL) return NULL;
 
@@ -240,10 +240,10 @@ Polynomial *polynomial_multiply(Polynomial *p1, Polynomial *p2)
  */
 Polynomial *polynomial_multiply_by_constant(Polynomial *p, double c)
 {
-    if (p1 == NULL) return NULL;
+    if (p == NULL) return NULL;
     if (c == 0) return polynomial_zero();
 
-    Polynomial *result = polynomial_new(p->degree + p->degree) return NULL;
+    Polynomial *result = polynomial_new(p->degree + p->degree);
     if (!result) return NULL;
 
     for (size_t i = 0; i < p->degree + 1; i++)
@@ -322,11 +322,11 @@ double polynomial_definite_integral(Polynomial *p, double a, double b)
     if (p == NULL) return 0.0;
 
     Polynomial *indefinite = polynomial_indefinite_integral(p, 0);
-    if (!indefinite) return NULL;
+    if (!indefinite) return 0.0;
 
-    double val = polynomial_evaluate_at(indefinite, b) - polynomial_evaluate_at(indefinite, a);
+    double val = polynomial_evaluate(indefinite, b) - polynomial_evaluate(indefinite, a);
 
-    polynomial_destroy(indefinite);
+    polynomial_destroy(&indefinite);
 
     return val;
 }
