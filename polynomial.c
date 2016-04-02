@@ -145,7 +145,6 @@ bool polynomial_is_zero(Polynomial *p)
 bool polynomial_equals(Polynomial *p1, Polynomial *p2)
 {
     if (p1 == NULL || p2 == NULL) return false;
-
     if (p1->degree != p2->degree) return false;
 
     for (size_t i = 0; i < p1->degree + 1; i++)
@@ -186,7 +185,7 @@ Polynomial *polynomial_add(Polynomial *p1, Polynomial *p2)
 {
     if (p1 == NULL || p2 == NULL) return NULL;
 
-    Polynomial *result = polynomial_bigger(p1, p2);
+    Polynomial *result = polynomial_copy(polynomial_bigger(p1, p2));
 
     for (size_t i = 0; i < polynomial_smaller(p1, p2)->degree + 1; i++)
         result->terms[i] += p1->terms[i] + p2->terms[i];
