@@ -21,6 +21,7 @@ double       polynomial_evaluate                (Polynomial *p, double x);
 Polynomial  *polynomial_add                     (Polynomial *p1, Polynomial *p2);
 Polynomial  *polynomial_subtract                (Polynomial *p1, Polynomial *p2);
 Polynomial  *polynomial_multiply                (Polynomial *p1, Polynomial *p2);
+Polynomial  *polynomial_multiply_by_constant    (Polynomial *p, double c);
 
 Polynomial  *polynomial_symmetric               (Polynomial *p);
 Polynomial  *polynomial_derivative              (Polynomial *p);
