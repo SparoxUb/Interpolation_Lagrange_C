@@ -190,7 +190,8 @@ Polynomial *polynomial_add(Polynomial *p1, Polynomial *p2)
     size_t m = bigger->degree;
 
     Polynomial *result = polynomial_new(m);
-    
+    if (!result) return NULL;
+
     size_t i;
 
     for (i = 0; i <= n; i++)
@@ -221,7 +222,8 @@ Polynomial *polynomial_subtract(Polynomial *p1, Polynomial *p2)
     size_t m = bigger->degree;
 
     Polynomial *result = polynomial_new(m);
-    
+    if (!result) return NULL;
+
     size_t i;
 
     for (i = 0; i <= n; i++)
