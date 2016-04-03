@@ -97,7 +97,7 @@ void polynomial_set_coefficient(Polynomial *p, size_t i, double a)
 
     p->terms[i] = a;
 
-    //if (a == 0.0) p = polynomial_reduce(p);
+    if (a == 0.0) p = polynomial_reduce(p);
 }
 
 /**
