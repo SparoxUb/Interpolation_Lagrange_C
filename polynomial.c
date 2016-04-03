@@ -49,7 +49,7 @@ Polynomial *polynomial_copy(Polynomial *p)
     Polynomial *copy = polynomial_new(p->degree);
     if (!copy) return NULL;
 
-    for (size_t i = 0; i < p->degree + 1; i++)
+    for (size_t i = 0; i <= p->degree; i++)
         copy->terms[i] = p->terms[i];
 
     return copy;
@@ -97,7 +97,7 @@ void polynomial_set_coefficient(Polynomial *p, size_t i, double a)
 
     p->terms[i] = a;
 
-    if (a == 0.0) p = polynomial_reduce(p);
+    //if (a == 0.0) p = polynomial_reduce(p);
 }
 
 /**
@@ -126,7 +126,7 @@ bool polynomial_is_zero(Polynomial *p)
 {
     if (p == NULL) return false;
 
-    for (size_t i = 0; i < p->degree + 1; i++)
+    for (size_t i = 0; i <= p->degree; i++)
         if (p->terms[i] != 0) return false;
 
     return true;
@@ -145,7 +145,7 @@ bool polynomial_equals(Polynomial *p1, Polynomial *p2)
     if (p1 == NULL || p2 == NULL) return false;
     if (p1->degree != p2->degree) return false;
 
-    for (size_t i = 0; i < p1->degree + 1; i++)
+    for (size_t i = 0; i <= p1->degree; i++)
         if (p1->terms[i] != p2->terms[i]) return false;
 
     return true;
@@ -165,7 +165,7 @@ double polynomial_evaluate(Polynomial *p, double x)
 
     double result = 0;
 
-    for (size_t i = 0; i < p->degree + 1; i++)
+    for (size_t i = 0; i <= p->degree; i++)
         result = result * x + p->terms[i];
 
     return result;
@@ -193,10 +193,10 @@ Polynomial *polynomial_add(Polynomial *p1, Polynomial *p2)
     
     size_t i;
 
-    for (i = 0; i < n+1; i++)
+    for (i = 0; i <= n; i++)
         result->terms[i] = p1->terms[i] + p2->terms[i];
 
-    for (i = n+1; i < m+1; i++)
+    for (i = n+1; i <= m; i++)
         result->terms[i] = bigger->terms[i];
 
     return polynomial_reduce(result);
@@ -224,10 +224,10 @@ Polynomial *polynomial_subtract(Polynomial *p1, Polynomial *p2)
     
     size_t i;
 
-    for (i = 0; i < n+1; i++)
+    for (i = 0; i <= n; i++)
         result->terms[i] = p1->terms[i] - p2->terms[i];
 
-    for (i = n+1; i < m+1; i++)
+    for (i = n+1; i <= m; i++)
         result->terms[i] = (p1 == smaller ? -1 : 1) * bigger->terms[i]; // TODO: does gcc optimize 1*x?
 
     return polynomial_reduce(result);
@@ -249,8 +249,8 @@ Polynomial *polynomial_multiply(Polynomial *p1, Polynomial *p2)
     Polynomial *result = polynomial_new(p1->degree + p2->degree);
     if (!result) return NULL;
 
-    for (size_t i = 0; i < p1->degree + 1; i++)
-        for (size_t j = 0; j < p2->degree + 1; j++)
+    for (size_t i = 0; i <= p1->degree; i++)
+        for (size_t j = 0; j <= p2->degree; j++)
             result->terms[i+j] += p1->terms[i] * p2->terms[j];
 
     return polynomial_reduce(result);
@@ -272,9 +272,8 @@ Polynomial *polynomial_multiply_by_constant(Polynomial *p, double c)
     Polynomial *result = polynomial_new(p->degree + p->degree);
     if (!result) return NULL;
 
-    for (size_t i = 0; i < p->degree + 1; i++)
-            result->terms[i] = p->terms[i] * c;
-
+    for (size_t i = 0; i <= p->degree; i++)
+        result->terms[i] = p->terms[i] * c;
 
     return result;
 }
@@ -309,7 +308,7 @@ Polynomial *polynomial_derivative(Polynomial *p)
 
     result->terms[0] = 0.0;
 
-    for (size_t i = 1; i < p->degree + 1; i++)
+    for (size_t i = 1; i <= p->degree; i++)
         result->terms[i-1] = p->terms[i] * i;
 
     return result;
@@ -332,7 +331,7 @@ Polynomial *polynomial_indefinite_integral(Polynomial *p, double c)
 
     result->terms[0] = c;
 
-    for (size_t i = 0; i < p->degree + 1; i++)
+    for (size_t i = 0; i <= p->degree; i++)
         result->terms[i+1] = p->terms[i] / (i+1);
 
     return result;
