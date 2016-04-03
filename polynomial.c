@@ -6,7 +6,7 @@ struct polynomial_s
     double *terms;
 };
 
-static bool         polynomial_valid_index  (Polynomial *p, size_t i);
+static bool          polynomial_valid_index  (Polynomial *p, size_t i);
 static Polynomial   *polynomial_bigger      (Polynomial *p1, Polynomial *p2);
 static Polynomial   *polynomial_smaller     (Polynomial *p1, Polynomial *p2);
 static Polynomial   *polynomial_zero        (void);
