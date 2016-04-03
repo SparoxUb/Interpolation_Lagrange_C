@@ -165,8 +165,9 @@ double polynomial_evaluate(Polynomial *p, double x)
 
     double result = 0;
 
-    for (size_t i = 0; i <= p->degree; i++)
-        result = result * x + p->terms[i];
+    size_t i = p->degree+1;
+    
+    while(--i) result = result * x + p->terms[i];
 
     return result;
 }
