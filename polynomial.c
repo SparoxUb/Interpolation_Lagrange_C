@@ -182,11 +182,22 @@ double polynomial_evaluate(Polynomial *p, double x)
 Polynomial *polynomial_add(Polynomial *p1, Polynomial *p2)
 {
     if (p1 == NULL || p2 == NULL) return NULL;
+    
+    Polynomial *smaller = polynomial_smaller(p1, p2);
+    Polynomial *bigger = polynomial_bigger(p1, p2);
 
-    Polynomial *result = polynomial_copy(polynomial_bigger(p1, p2));
+    size_t n = smaller->degree;
+    size_t m = bigger->degree;
 
-    for (size_t i = 0; i < polynomial_smaller(p1, p2)->degree + 1; i++)
-        result->terms[i] += p1->terms[i] + p2->terms[i];
+    Polynomial *result = polynomial_new(m);
+    
+    size_t i;
+
+    for (i = 0; i < n+1; i++)
+        result->terms[i] = p1->terms[i] + p2->terms[i];
+
+    for (i = n+1; i < m+1; i++)
+        result->terms[i] = bigger->terms[i];
 
     return polynomial_reduce(result);
 }
@@ -202,8 +213,25 @@ Polynomial *polynomial_add(Polynomial *p1, Polynomial *p2)
 Polynomial *polynomial_subtract(Polynomial *p1, Polynomial *p2)
 {
     if (p1 == NULL || p2 == NULL) return NULL;
+    
+    Polynomial *smaller = polynomial_smaller(p1, p2);
+    Polynomial *bigger = polynomial_bigger(p1, p2);
 
-    return polynomial_reduce(polynomial_add(p1, polynomial_symmetric(p2)));
+    size_t n = smaller->degree;
+    size_t m = bigger->degree;
+
+    Polynomial *result = polynomial_new(m);
+    
+    size_t i;
+
+    for (i = 0; i < n+1; i++)
+        result->terms[i] = p1->terms[i] - p2->terms[i];
+
+    for (i = n+1; i < m+1; i++)
+        result->terms[i] = (p1 == smaller ? -1 : 1) * bigger->terms[i]; // TODO: does gcc optimize 1*x?
+
+    return polynomial_reduce(result);
+    
 }
 
 /**
