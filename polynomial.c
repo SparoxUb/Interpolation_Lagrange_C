@@ -21,8 +21,6 @@ static Polynomial   *polynomial_reduce      (Polynomial *p);
  */
 Polynomial *polynomial_new(size_t n)
 {
-    if (n < 0) return NULL;
-
     Polynomial *p = malloc(sizeof(struct polynomial_s));
     if (!p) return NULL;
 
