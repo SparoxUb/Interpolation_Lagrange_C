@@ -1,9 +1,7 @@
 #ifndef __POLYNOMIAL_H__
 #define __POLYNOMIAL_H__
 
-#include <stdio.h>
 #include <stdlib.h>
-#include <math.h>
 #include <stdbool.h>
 
 typedef struct polynomial_s Polynomial;
