@@ -88,7 +88,7 @@ size_t polynomial_get_degree(Polynomial *p)
  * Sets the coefficient of the term of exponent i to a.
  *
  * @param[in] p the polynomial
- * @param[in] p the exponent
+ * @param[in] i the exponent
  * @param[in] a the coefficient
  */
 void polynomial_set_coefficient(Polynomial *p, size_t i, double a)
