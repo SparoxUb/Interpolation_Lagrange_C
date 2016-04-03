@@ -269,7 +269,7 @@ Polynomial *polynomial_multiply_by_constant(Polynomial *p, double c)
     if (p == NULL) return NULL;
     if (c == 0) return polynomial_zero();
 
-    Polynomial *result = polynomial_new(p->degree + p->degree);
+    Polynomial *result = polynomial_new(p->degree);
     if (!result) return NULL;
 
     for (size_t i = 0; i <= p->degree; i++)
