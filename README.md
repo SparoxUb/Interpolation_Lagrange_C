@@ -30,7 +30,7 @@ $ make install
 2. Link the program against the static library and compile it.
 
     ```bash
-    $ gcc foo.c -lpolynomial -o test
+    $ gcc foo.c -lpolynomial -o foo
     ```
 
 ## Example
