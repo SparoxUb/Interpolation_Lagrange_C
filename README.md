@@ -23,6 +23,18 @@ $ make install
 
 1. Include `polynomial.h` in your program.
 
+    ```c
+    #include <polynomial.h>
+    ```
+
+2. Link the program against the static library and compile it.
+
+    ```bash
+    $ gcc foo.c -lpolynomial -o test
+    ```
+
+## Example
+
 ```c
 #include <stdio.h>
 #include <polynomial.h>
@@ -62,10 +74,3 @@ int main(int argc, char **argv)
     return 0;
 }
 ```
-
-2. Link the program against the static library and compile it.
-
-```bash
-$ gcc foo.c -lpolynomial -o test
-```
-
