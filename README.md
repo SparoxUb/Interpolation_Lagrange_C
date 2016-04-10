@@ -1,4 +1,4 @@
-# c-polynomial
+# libpolynomial
 
 `libpolynomial` is a simple C library of a polynomial ADT that supports addition, subtraction, multiplication, differentation, integration, and other useful operations.
 
@@ -25,13 +25,10 @@ $ make install
     
     int main(int argc, char **argv)
     {
-        Polynomial *p = polynomial_new(5);
+        Polynomial *p = polynomial_new(2);
         polynomial_set_coefficient(p, 0, 7);
         polynomial_set_coefficient(p, 1, 2);
         polynomial_set_coefficient(p, 2, 3.5);
-        polynomial_set_coefficient(p, 3, 0.9);
-        polynomial_set_coefficient(p, 4, 18);
-        polynomial_set_coefficient(p, 5, 1);
     
         Polynomial *q = polynomial_new(3);
         polynomial_set_coefficient(q, 0, 1);
@@ -40,20 +37,10 @@ $ make install
         polynomial_set_coefficient(q, 3, 4);
     
         Polynomial *add = polynomial_add(p, q);
-        Polynomial *subtract = polynomial_subtract(p, q);
-        Polynomial *multiply = polynomial_multiply(p, q);
-        Polynomial *symmetric = polynomial_symmetric(p);
-        Polynomial *derivative = polynomial_derivative(p);
-        double integral = polynomial_definite_integral(p, 2, 3);
-        double val = polynomial_evaluate(p, 3.5);
     
         polynomial_destroy(&p);
         polynomial_destroy(&q);
         polynomial_destroy(&add);
-        polynomial_destroy(&subtract);
-        polynomial_destroy(&multiply);
-        polynomial_destroy(&symmetric);
-        polynomial_destroy(&derivative);
     
         return 0;
     }
@@ -71,11 +58,7 @@ Coming soon.
 
 ## Development
 
-##### Dependencies
-
-- `gcc`.
-
-##### Build
+`gcc` is the only build dependency. To build the library run:
 
 ```bash
 $ make
