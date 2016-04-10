@@ -16,7 +16,7 @@ $ make
 To install the library to the default location (`/usr/local/`) run:
 
 ```bash
-$ make install
+# make install
 ```
 
 ## Usage
