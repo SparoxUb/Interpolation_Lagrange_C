@@ -1,6 +1,6 @@
 # c-polynomial
 
-`c-polynomial` is a simple implementation in C of a polynomial ADT that supports addition, subtraction, multiplication, differentation, integration, and other useful operations.
+`libpolynomial` is a simple C library of a polynomial ADT that supports addition, subtraction, multiplication, differentation, integration, and other useful operations.
 
 ## Installation
 
@@ -71,11 +71,11 @@ Coming soon.
 
 ## Development
 
-#### Dependencies
+##### Dependencies
 
 - `gcc`.
 
-#### Build
+##### Build
 
 ```bash
 $ make
