@@ -52,10 +52,6 @@ $ make install
     $ gcc foo.c -lpolynomial -o foo
     ```
 
-## Documentation
-
-Coming soon.
-
 ## Development
 
 `gcc` is the only build dependency. To build the library run:
