@@ -1,6 +1,14 @@
 # libpolynomial
 
-`libpolynomial` is a C library of a polynomial [ADT](https://en.wikipedia.org/wiki/Abstract_data_type) that supports addition, subtraction, multiplication, differentation, integration, and other useful operations.
+`libpolynomial` is a C library of a polynomial [ADT](https://en.wikipedia.org/wiki/Abstract_data_type) that supports
+
+- addition
+- subtraction
+- multiplication
+- differentation
+- integration
+
+and other useful operations.
 
 ## Installation
 
