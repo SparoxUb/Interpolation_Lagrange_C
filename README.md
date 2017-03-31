@@ -44,11 +44,11 @@ $ make install
         polynomial_set_coefficient(q, 2, 0.2);
         polynomial_set_coefficient(q, 3, 4);
     
-        Polynomial *add = polynomial_add(p, q);
+        Polynomial *r = polynomial_add(p, q);
     
         polynomial_destroy(&p);
         polynomial_destroy(&q);
-        polynomial_destroy(&add);
+        polynomial_destroy(&r);
     
         return 0;
     }
