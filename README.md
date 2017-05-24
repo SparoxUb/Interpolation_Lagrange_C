@@ -5,7 +5,7 @@
 - addition
 - subtraction
 - multiplication
-- differentation
+- differentiation
 - integration
 
 and other useful operations.
