@@ -12,10 +12,16 @@ and other useful operations.
 
 ## Installation
 
-To install the library to the default location (`/usr/local/`) run as root:
+To install the library to the default directory (`/usr/local`) run:
 
-```bash
+```shell
 $ make install
+```
+
+You can customize the directory to which it is installed by overriding `$PREFIX`:
+
+```shell
+$ PREFIX=/home/foo make install
 ```
 
 ## Usage
@@ -25,31 +31,31 @@ $ make install
     ```c
     #include <polynomial.h>
     ```
-    
+
 2. Use the library functions accordingly.
 
     ```c
     #include <polynomial.h>
-    
+
     int main(int argc, char **argv)
     {
         Polynomial *p = polynomial_new(2);
         polynomial_set_coefficient(p, 0, 7);
         polynomial_set_coefficient(p, 1, 2);
         polynomial_set_coefficient(p, 2, 3.5);
-    
+
         Polynomial *q = polynomial_new(3);
         polynomial_set_coefficient(q, 0, 1);
         polynomial_set_coefficient(q, 1, 3);
         polynomial_set_coefficient(q, 2, 0.2);
         polynomial_set_coefficient(q, 3, 4);
-    
+
         Polynomial *r = polynomial_add(p, q);
-    
+
         polynomial_destroy(&p);
         polynomial_destroy(&q);
         polynomial_destroy(&r);
-    
+
         return 0;
     }
     ```

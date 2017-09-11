@@ -5,16 +5,17 @@ SRC = src/polynomial.c src/polynomial.h
 OBJ = obj/polynomial.o
 LIB = lib/libpolynomial.a
 
-INSTALL_LIB_DIR = /usr/local/lib
-INSTALL_INCLUDE_DIR = /usr/local/include
+PREFIX ?= /usr/local
 
-.PHONY: all install clean
+.PHONY: all install uninstall clean
 
 all: $(LIB)
 
 install: $(LIB)
-	sudo cp lib/libpolynomial.a	$(INSTALL_LIB_DIR)/libpolynomial.a
-	sudo cp src/polynomial.h 	$(INSTALL_INCLUDE_DIR)/polynomial.h
+	mkdir -p $(PREFIX)/lib
+	mkdir -p $(PREFIX)/include
+	cp lib/libpolynomial.a $(PREFIX)/lib/libpolynomial.a
+	cp src/polynomial.h $(PREFIX)/include/polynomial.h
 
 $(LIB): $(OBJ)
 	mkdir lib
@@ -24,6 +25,9 @@ $(OBJ): $(SRC)
 	mkdir obj
 	$(CC) $(CFLAGS) -c $< -o $@
 
+uninstall:
+	rm $(PREFIX)/lib/libpolynomial.a $(PREFIX)/include/polynomial.h
+
 clean:
-	rm -rf lib/ obj/ *.a *.o *~
+	git clean -Xdf
 
