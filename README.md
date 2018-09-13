@@ -26,13 +26,7 @@ $ PREFIX=/home/foo make install
 
 ## Usage
 
-1. Include the `polynomial.h` header in your program.
-
-    ```c
-    #include <polynomial.h>
-    ```
-
-2. Use the library functions accordingly.
+1. Include the `polynomial.h` header in your program and use the library functions accordingly.
 
     ```c
     #include <polynomial.h>
@@ -60,7 +54,7 @@ $ PREFIX=/home/foo make install
     }
     ```
 
-3. Link the program against the static library and compile it.
+2. Link the program against the static library and compile it.
 
     ```bash
     $ gcc foo.c -lpolynomial -o foo
