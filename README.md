@@ -1,6 +1,6 @@
 # Interpolation_Lagrange_C 
 
-Simply It is a C program that Calculates the (interpolating function)[https://en.wikipedia.org/wiki/Interpolation] from giving points using (Lagrange polynomial interpolation)[https://en.wikipedia.org/wiki/Lagrange_polynomial].
+Simply It is a C program that Calculates the [interpolating function](https://en.wikipedia.org/wiki/Interpolation) from giving points using [Lagrange polynomial interpolation](https://en.wikipedia.org/wiki/Lagrange_polynomial).
 
 It Contains also a C library  of a polynomials and Fractions that supports 
 
