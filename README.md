@@ -1,69 +1,26 @@
-# libpolynomial
+# Interpolation_Lagrange_C 
 
-`libpolynomial` is a C library of a polynomial [ADT](https://en.wikipedia.org/wiki/Abstract_data_type) that supports
+Simply It is a C program that Calculates the (interpolating function)[https://en.wikipedia.org/wiki/Interpolation] from giving points using (Lagrange polynomial interpolation)[https://en.wikipedia.org/wiki/Lagrange_polynomial].
+
+It Contains also a C library  of a polynomials and Fractions that supports 
 
 - addition
 - subtraction
 - multiplication
-- differentiation
-- integration
 
 and other useful operations.
 
-## Installation
 
-To install the library to the default directory (`/usr/local`) run:
+## Notice 
 
-```shell
-$ make install
-```
-
-You can customize the directory to which it is installed by overriding `$PREFIX`:
-
-```shell
-$ PREFIX=/home/foo make install
-```
+    I builded this program so quick so i want to notice that : 
+   ⋅⋅* the program dialogue is written in french     
+   ⋅⋅* the code is note well optimised especially memory management, but the code stills simple to understand
+   ⋅⋅* I didn't quiet test it for bigger situations
 
 ## Usage
 
-1. Include the `polynomial.h` header in your program and use the library functions accordingly.
+    Created with codeBlocks, you can start directly the exe file inside \bin folder or use CodeBlocks and change what ever you want 
+    
+    the is also somme commented snippets that will help you to understand.
 
-    ```c
-    #include <polynomial.h>
-
-    int main(int argc, char **argv)
-    {
-        Polynomial *p = polynomial_new(2);
-        polynomial_set_coefficient(p, 0, 7);
-        polynomial_set_coefficient(p, 1, 2);
-        polynomial_set_coefficient(p, 2, 3.5);
-
-        Polynomial *q = polynomial_new(3);
-        polynomial_set_coefficient(q, 0, 1);
-        polynomial_set_coefficient(q, 1, 3);
-        polynomial_set_coefficient(q, 2, 0.2);
-        polynomial_set_coefficient(q, 3, 4);
-
-        Polynomial *r = polynomial_add(p, q);
-
-        polynomial_destroy(&p);
-        polynomial_destroy(&q);
-        polynomial_destroy(&r);
-
-        return 0;
-    }
-    ```
-
-2. Link the program against the static library and compile it.
-
-    ```bash
-    $ gcc foo.c -lpolynomial -o foo
-    ```
-
-## Development
-
-`gcc` is the only build dependency. To build the library run:
-
-```bash
-$ make
-```
