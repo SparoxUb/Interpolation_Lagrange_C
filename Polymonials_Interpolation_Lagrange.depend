@@ -1,0 +1,34 @@
+# depslib dependency file v1.0
+1586211397 source:d:\projects\codeblocks\c\polymonials_interpolation_lagrange\main.c
+	<stdio.h>
+	<stdlib.h>
+	"Fraction.h"
+	"polynomial.h"
+	"FractionPolymon.h"
+
+1586207483 source:d:\projects\codeblocks\c\polymonials_interpolation_lagrange\polynomial.c
+	"polynomial.h"
+	"Fraction.c"
+
+1586136507 d:\projects\codeblocks\c\polymonials_interpolation_lagrange\polynomial.h
+	<stdlib.h>
+	<stdbool.h>
+	"Fraction.h"
+
+1586193128 d:\projects\codeblocks\c\polymonials_interpolation_lagrange\fraction.h
+
+1586109888 source:d:\projects\codeblocks\c\polymonials_interpolation_lagrange\fraction.c
+	"Fraction.h"
+	<string.h>
+	<stdlib.h>
+	<stdio.h>
+
+1586211411 d:\projects\codeblocks\c\polymonials_interpolation_lagrange\fraction.c
+	"Fraction.h"
+	<string.h>
+	<stdlib.h>
+	<stdio.h>
+
+1586137944 d:\projects\codeblocks\c\polymonials_interpolation_lagrange\fractionpolymon.h
+	"polynomial.h"
+
