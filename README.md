@@ -13,7 +13,7 @@ and other useful operations.
 
 ## Notice 
 
-    I builded this program so quick so i want to notice that : 
+    I created this program so quick so i want to notice that : 
    ⋅⋅* the program dialogue is written in french     
    ⋅⋅* the code is note well optimised especially memory management, but the code stills simple to understand
    ⋅⋅* I didn't quiet test it for bigger situations
@@ -24,3 +24,7 @@ and other useful operations.
     
     the is also somme commented snippets that will help you to understand.
 
+## example
+
+[logo]: https://raw.githubusercontent.com/SparoxUb/Interpolation_Lagrange_C/master/src/pic.jpeg "Logo Title Text 2"
+<img src="https://raw.githubusercontent.com/SparoxUb/Interpolation_Lagrange_C/master/src/pic.jpeg" alt="example" />
